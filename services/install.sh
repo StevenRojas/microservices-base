@@ -1,5 +1,5 @@
 #!/bin/bash
-SERVICES=('jobs' 'users')
+SERVICES=('jobs' 'admin')
 COUNT=${#SERVICES[@]}
 for ((i = 0; i < COUNT; i++)); do
   SERVICE=${SERVICES[${i}]}

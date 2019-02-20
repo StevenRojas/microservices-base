@@ -1,0 +1,1628 @@
+openapi: 3.0.0
+servers:
+# Added by API Auto Mocking Plugin
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/StevenRojas/ProofOfInstall/1.0.0
+info:
+  description: Proof Of Install API for business logic and admin
+  version: "1.0.0"
+  title: Proof Of Install API
+  contact:
+    email: steven.rojas@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+- name: admin
+  description: Admin service to set stores, configuration, etc
+- name: access
+  description: Login and logout from system
+- name: users
+  description: User service
+- name: stores
+  description: Store service
+- name: jobs
+  description: Jobs service with operations to handle jobs logic and alerts
+- name: review
+  description: Review service with operations to handle jobs and gallery reviews
+- name: issues
+  description: Issues service with operations to handle jobs issues
+- name: dashboard
+  description: Dashboard service that provides access to stats and audit logs
+paths:
+  /company/:
+    get:
+      tags:
+      - admin
+      summary: Company list
+      description: Returns a list of companies
+      operationId: getCompanies
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Company'
+        '401':
+          description: Invalid access to this resource
+      security:
+      - bearerAuth: []
+  /company/{id}:
+    get:
+      tags:
+      - admin
+      summary: Get a company
+      description: Returns a company
+      operationId: getCompany
+      parameters:
+      - name: id
+        in: path
+        description: ID of company
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Invalid access to this resource
+        '404':
+          description: Company not found
+      security:
+      - bearerAuth: []
+  /company/{id}/config/:
+    get:
+      tags:
+      - admin
+      summary: Get a company's configuration
+      description: Returns the company's configuration
+      operationId: getCompanyConfig
+      parameters:
+      - name: id
+        in: path
+        description: ID of company
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Company configuration as Json
+                example: {}
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Invalid access to this resource
+        '404':
+          description: Company not found
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - admin
+      summary: Update company's configuration
+      description: Update company's configuration
+      operationId: updateConfig
+      parameters:
+      - name: id
+        in: path
+        description: ID of company
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Company not found
+        '405':
+          description: Invalid input
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                config:
+                  type: string
+                  description: Company configuration as Json
+                  example: {}
+      security:
+      - bearerAuth: []
+  /installer-company/:
+    get:
+      tags:
+      - admin
+      summary: Installer Company list
+      description: Returns a list of installer companies
+      operationId: getInstallerCompanies
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InstallerCompany'
+        '401':
+          description: Invalid access to this resource
+      security:
+      - bearerAuth: []
+  /installer-company/by-company/:
+    get:
+      tags:
+      - admin
+      summary: Installer Company list by company
+      description: Returns a list of installer companies for given company (JWT)
+      operationId: getInstallerCompaniesByCompany
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InstallerCompany'
+        '401':
+          description: Invalid access to this resource
+      security:
+      - bearerAuth: []
+  /installer-company/{id}:
+    get:
+      tags:
+      - admin
+      summary: Get an installer company
+      description: Returns a installer company
+      operationId: getInstallerCompany
+      parameters:
+      - name: id
+        in: path
+        description: ID of installer company
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FullInstallerCompany'
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Invalid access to this resource
+        '404':
+          description: Installer company not found
+      security:
+      - bearerAuth: []
+  /city/:
+    get:
+      tags:
+      - admin
+      summary: City list
+      description: Returns a list of cities
+      operationId: getCities
+      parameters:
+      - in: query
+        name: page
+        schema:
+          type: integer
+        description: Page number
+      - in: query
+        name: per_page
+        schema:
+          type: integer
+        description: The numbers of items per page
+      - in: query
+        name: q
+        schema:
+          type: string
+        description: Search query to filter cities by name
+      - in: query
+        name: sort
+        schema:
+          type: string
+        description: Sory by field
+        example: -name
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CityList'
+        '401':
+          description: Invalid access to this resource
+      security:
+      - bearerAuth: []
+  /city/{id}:
+    get:
+      tags:
+      - admin
+      summary: Get a city
+      description: Returns a city
+      operationId: getCity
+      parameters:
+      - name: id
+        in: path
+        description: ID of city
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/City'
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Invalid access to this resource
+        '404':
+          description: City not found
+      security:
+      - bearerAuth: []
+  /role/:
+    get:
+      tags:
+      - admin
+      summary: Role list
+      description: Returns a list of roles
+      operationId: getRoles
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Role'
+        '401':
+          description: Invalid access to this resource
+      security:
+      - bearerAuth: []
+  /role/{id}:
+    get:
+      tags:
+      - admin
+      summary: Get a role
+      description: Returns a role
+      operationId: getRole
+      parameters:
+      - name: id
+        in: path
+        description: ID of role
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Invalid access to this resource
+        '404':
+          description: Role not found
+      security:
+      - bearerAuth: []
+  /user-type/:
+    get:
+      tags:
+      - admin
+      summary: User type list
+      description: Returns a list of user type
+      operationId: getUserTypes
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserType'
+        '401':
+          description: Invalid access to this resource
+      security:
+      - bearerAuth: []
+  /user-type/{id}:
+    get:
+      tags:
+      - admin
+      summary: Get a user type
+      description: Returns a user type
+      operationId: getUserType
+      parameters:
+      - name: id
+        in: path
+        description: ID of user type
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserType'
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Invalid access to this resource
+        '404':
+          description: User type not found
+      security:
+      - bearerAuth: []
+  /department/:
+    get:
+      tags:
+      - admin
+      summary: Department list
+      description: Returns a list of departments
+      operationId: getDepartments
+      parameters:
+      - in: query
+        name: q
+        schema:
+          type: string
+        description: Search query to filter departments by name
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Department'
+        '401':
+          description: Invalid access to this resource
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - admin
+      summary: Add a new department
+      operationId: addDepartment
+      responses:
+        '401':
+          description: Invalid access to this resource
+        '405':
+          description: Invalid input
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                company_id:
+                  type: integer
+                  format: int64
+      security:
+      - bearerAuth: []
+  /department/{id}:
+    get:
+      tags:
+      - admin
+      summary: Get a department
+      description: Returns a department
+      operationId: getDepartment
+      parameters:
+      - name: id
+        in: path
+        description: ID of department
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Department'
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Invalid access to this resource
+        '404':
+          description: Department not found
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - admin
+      summary: Update an existing department
+      operationId: updateDepartment
+      parameters:
+      - name: id
+        in: path
+        description: ID of department
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '200':
+          description: success
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Department not found
+        '405':
+          description: Invalid input
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                company_id:
+                  type: integer
+                  format: int64
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - admin
+      summary: Delete a department
+      description: Deletes a given department
+      operationId: removeDepartment
+      parameters:
+      - name: id
+        in: path
+        description: ID of department
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '200':
+          description: success
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Invalid access to this resource
+        '404':
+          description: Department not found
+      security:
+      - bearerAuth: []
+  /department/by-company/:
+    get:
+      tags:
+      - admin
+      summary: Departments by company
+      description: Returns a list of departments for given company (JWT)
+      operationId: getDepartmentsByCompany
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Department'
+        '401':
+          description: Invalid access to this resource
+      security:
+      - bearerAuth: []
+  /access/sso/:
+    post:
+      tags:
+      - access
+      summary: Login with SSO
+      description: Returns a token based on SSO credentials
+      operationId: accessSSO
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '400':
+          description: Invalid credentials supplied
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              description: SSO token generated by third party
+              example: Google SSO
+  /access/login/:
+    post:
+      tags:
+      - access
+      summary: Login with credentials
+      description: Returns a token based on username and password
+      operationId: accessCredentials
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '400':
+          description: Invalid credentials supplied
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credentials'
+  /access/logout:
+    get:
+      tags:
+      - access
+      summary: Logout
+      description: Logout current logged user
+      operationId: accessLogout
+      responses:
+        '200':
+          description: success
+      security:
+      - bearerAuth: []
+  /user/:
+    get:
+      tags:
+      - users
+      summary: User list
+      description: Returns a list of users with pagination
+      operationId: getUsers
+      parameters:
+      - in: query
+        name: page
+        schema:
+          type: integer
+        description: Page number
+      - in: query
+        name: per_page
+        schema:
+          type: integer
+        description: The numbers of items per page
+      - in: query
+        name: q
+        schema:
+          type: string
+        description: Search query to filter users by name and email
+      - in: query
+        name: sort
+        schema:
+          type: string
+        description: Sory by field
+        example: -name
+      - in: header
+        name: response_type
+        schema:
+          type: string
+          enum: [simple, full]
+          description: Response type, simple and full (full just for admin)
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/FullUserList'
+                - $ref: '#/components/schemas/UserList'
+        '401':
+          description: Invalid access to this resource
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - users
+      summary: Add a new user
+      operationId: addUser
+      responses:
+        '405':
+          description: Invalid input
+        '401':
+          description: Invalid access to this resource
+      security:
+      - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExtendedUser'
+  /user/{id}:
+    get:
+      tags:
+      - users
+      summary: Get a user
+      description: Returns a user
+      operationId: getUser
+      parameters:
+      - name: id
+        in: path
+        description: ID of user
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      - in: header
+        name: response_type
+        schema:
+          type: string
+          enum: [simple, full]
+          description: Response type, simple and full (only admin)
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/User'
+                - $ref: '#/components/schemas/ExtendedUser'
+                - $ref: '#/components/schemas/FullUser'
+                discriminator:
+                  propertyName: schema_type
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Invalid access to this resource
+        '404':
+          description: User not found
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - users
+      summary: Update an existing user
+      operationId: updateUser
+      parameters:
+      - name: id
+        in: path
+        description: ID of user
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '200':
+          description: success
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: User not found
+        '405':
+          description: Invalid input
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExtendedUser'
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - users
+      summary: Delete a user
+      description: Deletes a given user
+      operationId: removeUser
+      parameters:
+      - name: id
+        in: path
+        description: ID of user
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '200':
+          description: success
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Invalid access to this resource
+        '404':
+          description: User not found
+      security:
+      - bearerAuth: []
+    patch:
+      tags:
+      - users
+      summary: Update either notification, active or admin flags
+      operationId: patchUser
+      parameters:
+      - name: id
+        in: path
+        description: ID of user
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '200':
+          description: success
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: User not found
+        '405':
+          description: Invalid input
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                admin:
+                  type: boolean
+                notifications:
+                  type: boolean
+                active:
+                  type: boolean
+      security:
+      - bearerAuth: []
+  /user/by-company/:
+    get:
+      tags:
+      - users
+      summary: User list by compnay
+      description: Returns a list of users by company (JWT) with pagination
+      operationId: getUsers
+      parameters:
+      - in: query
+        name: page
+        schema:
+          type: integer
+        description: Page number
+      - in: query
+        name: per_page
+        schema:
+          type: integer
+        description: The numbers of items per page
+      - in: query
+        name: q
+        schema:
+          type: string
+        description: Search query to filter users by name and email
+      - in: header
+        name: response_type
+        schema:
+          type: string
+          enum: [simple, full]
+          description: Response type, simple and full (full just for admin)
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/FullUserList'
+                - $ref: '#/components/schemas/UserList'
+        '401':
+          description: Invalid access to this resource
+      security:
+      - bearerAuth: []
+  /user/{id}/role/:
+    get:
+      tags:
+      - users
+      summary: Get the roles
+      description: Returns the roles of the given user
+      operationId: getUserRoles
+      parameters:
+      - name: id
+        in: path
+        description: ID of user
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Role'
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Invalid access to this resource
+        '404':
+          description: User not found
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - users
+      summary: Add a role to existing user
+      operationId: addUserRole
+      parameters:
+      - name: id
+        in: path
+        description: ID of user
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '200':
+          description: success
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: User not found
+        '405':
+          description: Invalid input
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                role:
+                  type: integer
+                  format: int64
+                  minimum: 1
+      security:
+      - bearerAuth: []
+  /user/{id}/role/{roleId}:
+    delete:
+      tags:
+      - users
+      summary: Delete a user's role
+      description: Deletes the role of a given user
+      operationId: removeUserRole
+      parameters:
+      - name: id
+        in: path
+        description: ID of user
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      - name: roleId
+        in: path
+        description: ID of user's role
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '200':
+          description: success
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Invalid access to this resource
+        '404':
+          description: User or role not found
+      security:
+      - bearerAuth: []
+  /store/:
+    get:
+      tags:
+      - stores
+      summary: Store list
+      description: Returns a list of stores with pagination
+      operationId: getStores
+      parameters:
+      - in: query
+        name: page
+        schema:
+          type: integer
+        description: Page number
+      - in: query
+        name: per_page
+        schema:
+          type: integer
+        description: The numbers of items per page
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreList'
+        '401':
+          description: Invalid access to this resource
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - stores
+      summary: Add a new store
+      operationId: addStore
+      responses:
+        '405':
+          description: Invalid input
+        '401':
+          description: Invalid access to this resource
+      security:
+      - bearerAuth: []
+      requestBody:
+        $ref: '#/components/requestBodies/Store'
+  /store/{id}:
+    get:
+      tags:
+      - stores
+      summary: Get a store
+      description: Returns a store
+      operationId: getStore
+      parameters:
+      - name: id
+        in: path
+        description: ID of store
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Store'
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Invalid access to this resource
+        '404':
+          description: Store not found
+      security:
+      - bearerAuth: []
+    put:
+      tags:
+      - stores
+      summary: Update an existing store
+      operationId: updateStore
+      parameters:
+      - name: id
+        in: path
+        description: ID of store
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Store not found
+        '405':
+          description: Invalid input
+      requestBody:
+        $ref: '#/components/requestBodies/Store'
+      security:
+      - bearerAuth: []
+    delete:
+      tags:
+      - stores
+      summary: Delete a store
+      description: Deletes a given store
+      operationId: removeStore
+      parameters:
+      - name: id
+        in: path
+        description: ID of store
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '200':
+          description: success
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Invalid access to this resource
+        '404':
+          description: Store not found
+      security:
+      - bearerAuth: []
+  /store/{id}/department/:
+    get:
+      tags:
+      - stores
+      summary: Get departments
+      description: Returns the departments of the given store
+      operationId: getStoreDepartments
+      parameters:
+      - name: id
+        in: path
+        description: ID of store
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Department'
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Invalid access to this resource
+        '404':
+          description: Store not found
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - stores
+      summary: Add a department to existing store
+      operationId: addStoreDepartment
+      parameters:
+      - name: id
+        in: path
+        description: ID of store
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Store not found
+        '405':
+          description: Invalid input
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                department:
+                  type: integer
+                  format: int64
+                  minimum: 1
+      security:
+      - bearerAuth: []
+  /store/{id}/department/{departmentId}:
+    delete:
+      tags:
+      - stores
+      summary: Delete a store's department
+      description: Deletes the department of a given store
+      operationId: removeStoreDepartment
+      parameters:
+      - name: id
+        in: path
+        description: ID of store
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      - name: departmentId
+        in: path
+        description: ID of store's department
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '200':
+          description: success
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Invalid access to this resource
+        '404':
+          description: Store or department not found
+      security:
+      - bearerAuth: []
+  /store/{id}/user/:
+    get:
+      tags:
+      - stores
+      summary: Get users
+      description: Returns the users of the given store
+      operationId: getStoreUsers
+      parameters:
+      - name: id
+        in: path
+        description: ID of store
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Invalid access to this resource
+        '404':
+          description: Store not found
+      security:
+      - bearerAuth: []
+    post:
+      tags:
+      - stores
+      summary: Add a user to existing store
+      operationId: addStoreUser
+      parameters:
+      - name: id
+        in: path
+        description: ID of store
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Store not found
+        '405':
+          description: Invalid input
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: integer
+                  format: int64
+                  minimum: 1
+      security:
+      - bearerAuth: []
+  /store/{id}/user/{userId}:
+    delete:
+      tags:
+      - stores
+      summary: Delete a store's user
+      description: Deletes the user of a given store
+      operationId: removeStoreUser
+      parameters:
+      - name: id
+        in: path
+        description: ID of store
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      - name: userId
+        in: path
+        description: ID of store's user
+        required: true
+        schema:
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        '200':
+          description: success
+        '400':
+          description: Invalid ID supplied
+        '401':
+          description: Invalid access to this resource
+        '404':
+          description: Store or user not found
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  requestBodies:
+    Company:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Company'
+      description: Company object that should be added
+      required: true
+    InstallerCompany:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InstallerCompany'
+      description: Installer company object that should be added
+      required: true
+    SSO:
+      content:
+        application/json:
+          schema:
+            type: string
+      description: SSO token generated by third party
+      required: true
+    User1:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+      description: User object that should be added or updated
+      required: true
+    Store:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Store'
+      description: Store object that should be added or updated
+      required: true
+  schemas:
+    Company:
+      type: object
+      required:
+      - name
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+    InstallerCompany:
+      type: object
+      required:
+      - name
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+    FullInstallerCompany:
+      allOf:
+      - $ref: '#/components/schemas/InstallerCompany'
+      - type: object
+        required:
+        - name
+        properties:
+          id:
+            type: integer
+            format: int32
+          name:
+            type: string
+          email_address:
+            type: string
+            format: email
+          contact_name:
+            type: string
+          address:
+            type: string
+          phone:
+            type: string
+          company:
+            $ref: '#/components/schemas/Company'
+    City:
+      type: object
+      required:
+      - name
+      - state_code
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        state_code:
+          type: string
+    Role:
+      type: object
+      required:
+      - code
+      - name
+      properties:
+        id:
+          type: integer
+          format: int32
+        code:
+          type: string
+        name:
+          type: string
+    UserType:
+      type: object
+      required:
+      - code
+      - name
+      properties:
+        id:
+          type: integer
+          format: int32
+        code:
+          type: string
+        name:
+          type: string
+    User:
+      type: object
+      required:
+      - name
+      - email
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        active:
+          type: boolean
+        schema_type:
+          type: string
+          description: Discriminator field (Base, Extended, Full)
+    ExtendedUser:
+      allOf:
+      - $ref: '#/components/schemas/User'
+      - type: object
+        required:
+        - name
+        - email
+        properties:
+          secondary_email:
+            type: string
+          title:
+            type: string
+          phone:
+            type: string
+          cell_phone1:
+            type: string
+          admin:
+            type: boolean
+          notifications:
+            type: boolean
+          company_id:
+            type: integer
+            format: int32
+          user_type_id:
+            type: integer
+            format: int32
+          installer_company_id:
+            type: integer
+            format: int32
+    FullUser:
+      allOf:
+      - $ref: '#/components/schemas/ExtendedUser'
+      - type: object
+        required:
+        - name
+        - email
+        properties:
+          company:
+            $ref: '#/components/schemas/Company'
+          user_type:
+            $ref: '#/components/schemas/UserType'
+          installer_company:
+            $ref: '#/components/schemas/InstallerCompany'
+    Department:
+      type: object
+      required:
+      - name
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        description:
+          type: string
+    Store:
+      type: object
+      required:
+      - name
+      - number
+      - address1
+      - zipcode
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        number:
+          type: string
+        alt_id:
+          type: string
+        classifications:
+          type: string
+        phone:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        zipcode:
+          type: string
+        latitude:
+          type: string
+        longitude:
+          type: string
+        departments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Department'
+    Token:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: Access token used on every request to the API
+        refresh_token:
+          type: string
+          description: Refresh token used when the access token expired
+
+    Credentials:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    PaginationLinks:
+      type: object
+      properties:
+        first:
+          type: string
+          example: http://localhost:8000/api/user?page=1
+        last:
+          type: string
+          example: http://localhost:8000/api/user?page=10
+        prev:
+          type: string
+          example: http://localhost:8000/api/user?page=2
+        next:
+          type: string
+          example: http://localhost:8000/api/user?page=4
+      description:
+        Pagination links
+    PaginationMeta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+          example: 3
+        from:
+          type: integer
+          example: 11
+          description: First row in the page
+        to:
+          type: integer
+          example: 20
+          description: Last row in the page
+        last_page:
+          type: integer
+          example: 30
+        per_page:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 315
+        more_pages:
+          type: boolean
+          description: If there are more pages to show
+      description:
+        Pagination metadata
+    UserList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    FullUserList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FullUser'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    StoreList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Store'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    CityList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/City'
+        links:
+          $ref: '#/components/schemas/PaginationLinks'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'

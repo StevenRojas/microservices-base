@@ -1,0 +1,158 @@
+Company:
+  hasMany: store user department
+  belongsToMany: installer_company
+  fields:
+    name:
+      schema: string:80
+      rules: required
+      tags: fillable
+    config:
+      schema: text nullable
+      tags: fillable
+  add: timestamps softDeletes
+InstallerCompany:
+  belongsToMany: company
+  fields:
+    name:
+      schema: string:80 unique
+      rules: required
+      tags: fillable
+    email_address:
+      schema: string:100 nullable
+      rules: email
+      tags: fillable
+    contact_name:
+      schema: string:100 nullable
+      tags: fillable
+    address:
+      schema: string:100 nullable
+      tags: fillable
+    phone:
+      schema: string:20 nullable
+      tags: fillable
+  add: timestamps softDeletes
+City:
+  hasMany: store
+  fields:
+    name:
+      schema: string:100
+      rules: required
+      tags: fillable
+    state_code:
+      schema: string:2
+      rules: required
+      tags: fillable
+  add: timestamps softDeletes
+Role:
+  belongsToMany: user
+  fields:
+    code:
+      schema: string:50 unique
+      rules: required
+      tags: fillable
+    name:
+      schema: string:50
+      rules: required
+      tags: fillable
+  add: timestamps softDeletes
+UserType:
+  hasMany: user
+  fields:
+    code:
+      schema: string:50 unique
+      rules: required
+      tags: fillable
+    name:
+      schema: string:50
+      rules: required
+      tags: fillable
+  add: timestamps softDeletes
+User:
+  belongsToMany: role store
+  belongsTo: company userType installerCompany
+  fields:
+    name:
+      schema: string:80
+      rules: required
+      tags: fillable
+    email:
+      schema: string:100 unique
+      rules: required|email
+      tags: fillable
+    secondary_email:
+      schema: string:100 nullable
+      tags: fillable
+    title:
+      schema: string:100 nullable
+      tags: fillable
+    phone:
+      schema: string:20 nullable
+      tags: fillable
+    cell_phone:
+      schema: string:20 nullable
+      tags: fillable
+    notifications:
+      schema: boolean
+      tags: fillable
+    admin:
+      schema: boolean
+      tags: fillable
+    token:
+      schema: text nullable
+      tags: fillable
+    refresh_token:
+      schema: text nullable
+      tags: fillable
+    invite_key:
+      schema: text nullable
+      tags: fillable
+  add: timestamps softDeletes
+Department:
+  belongsToMany: store
+  belongsTo: company
+  fields:
+    name:
+      schema: string:100
+      rules: required
+      tags: fillable
+    description:
+      schema: text nullable
+      tags: fillable
+  add: timestamps softDeletes
+Store:
+  belongsToMany: user
+  belongsTo: company city
+  fields:
+    name:
+      schema: string:80
+      rules: required
+      tags: fillable
+    number:
+      schema: string:20
+      rules: required
+      tags: fillable
+    alt_id:
+      schema: string:20 nullable
+      tags: fillable
+    classifications:
+      schema: text nullable
+      tags: fillable
+    phone:
+      schema: string:20 nullable
+      tags: fillable
+    address1:
+      schema: string:100 nullable
+      tags: fillable
+    address2:
+      schema: string:100 nullable
+      tags: fillable
+    zipcode:
+      schema: string:15 nullable
+      tags: fillable
+    latitude:
+      schema: decimal:10,7 nullable
+      tags: fillable
+    longitude:
+      schema: decimal:10,7 nullable
+      tags: fillable
+  add: timestamps softDeletes
