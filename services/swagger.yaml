@@ -47,7 +47,17 @@ paths:
                 items:
                   $ref: '#/components/schemas/Company'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
   /company/{id}:
@@ -74,11 +84,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/Company'
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: Company not found
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
   /company/{id}/config/:
@@ -107,11 +135,29 @@ paths:
                 description: Company configuration as Json
                 example: {}
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: Company not found
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
     put:
@@ -130,12 +176,38 @@ paths:
           format: int64
           minimum: 1
       responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Company configuration as Json
+                example: {}
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: Company not found
-        '405':
-          description: Invalid input
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         content:
           application/json:
@@ -165,7 +237,17 @@ paths:
                 items:
                   $ref: '#/components/schemas/InstallerCompany'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
   /installer-company/by-company/:
@@ -185,7 +267,11 @@ paths:
                 items:
                   $ref: '#/components/schemas/InstallerCompany'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
   /installer-company/{id}:
@@ -212,11 +298,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/FullInstallerCompany'
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: Installer company not found
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
   /city/:
@@ -256,7 +360,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/CityList'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
   /city/{id}:
@@ -283,11 +397,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/City'
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: City not found
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
   /role/:
@@ -307,7 +439,17 @@ paths:
                 items:
                   $ref: '#/components/schemas/Role'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
   /role/{id}:
@@ -334,11 +476,23 @@ paths:
               schema:
                 $ref: '#/components/schemas/Role'
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: Role not found
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
   /user-type/:
@@ -358,7 +512,17 @@ paths:
                 items:
                   $ref: '#/components/schemas/UserType'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
   /user-type/{id}:
@@ -385,11 +549,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/UserType'
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: User type not found
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
   /department/:
@@ -415,7 +597,17 @@ paths:
                 items:
                   $ref: '#/components/schemas/Department'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
     post:
@@ -424,10 +616,30 @@ paths:
       summary: Add a new department
       operationId: addDepartment
       responses:
+        '201':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Department'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
-        '405':
-          description: Invalid input
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         content:
           application/json:
@@ -467,11 +679,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/Department'
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: Department not found
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
     put:
@@ -491,12 +721,34 @@ paths:
       responses:
         '200':
           description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Department'
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: Department not found
-        '405':
-          description: Invalid input
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         content:
           application/json:
@@ -528,14 +780,32 @@ paths:
           format: int64
           minimum: 1
       responses:
-        '200':
+        '204':
           description: success
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: Department not found
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
   /department/by-company/:
@@ -555,7 +825,17 @@ paths:
                 items:
                   $ref: '#/components/schemas/Department'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
   /access/sso/:
@@ -573,7 +853,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Token'
         '400':
-          description: Invalid credentials supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         content:
           application/json:
@@ -596,7 +880,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/Token'
         '400':
-          description: Invalid credentials supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         content:
           application/json:
@@ -610,8 +898,14 @@ paths:
       description: Logout current logged user
       operationId: accessLogout
       responses:
-        '200':
+        '204':
           description: success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
   /user/:
@@ -658,8 +952,24 @@ paths:
                 oneOf:
                 - $ref: '#/components/schemas/FullUserList'
                 - $ref: '#/components/schemas/UserList'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
     post:
@@ -668,10 +978,30 @@ paths:
       summary: Add a new user
       operationId: addUser
       responses:
-        '405':
-          description: Invalid input
+        '201':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
       requestBody:
@@ -714,11 +1044,29 @@ paths:
                 discriminator:
                   propertyName: schema_type
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: User not found
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
     put:
@@ -738,12 +1086,34 @@ paths:
       responses:
         '200':
           description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: User not found
-        '405':
-          description: Invalid input
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         content:
           application/json:
@@ -767,14 +1137,32 @@ paths:
           format: int64
           minimum: 1
       responses:
-        '200':
+        '204':
           description: success
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: User not found
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
     patch:
@@ -794,12 +1182,34 @@ paths:
       responses:
         '200':
           description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: User not found
-        '405':
-          description: Invalid input
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         content:
           application/json:
@@ -820,7 +1230,7 @@ paths:
       - users
       summary: User list by compnay
       description: Returns a list of users by company (JWT) with pagination
-      operationId: getUsers
+      operationId: getUsersByCompany
       parameters:
       - in: query
         name: page
@@ -853,7 +1263,17 @@ paths:
                 - $ref: '#/components/schemas/FullUserList'
                 - $ref: '#/components/schemas/UserList'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
   /user/{id}/role/:
@@ -882,11 +1302,29 @@ paths:
                 items:
                   $ref: '#/components/schemas/Role'
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: User not found
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
     post:
@@ -904,14 +1342,32 @@ paths:
           format: int64
           minimum: 1
       responses:
-        '200':
+        '201':
           description: success
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: User not found
-        '405':
-          description: Invalid input
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         content:
           application/json:
@@ -949,14 +1405,32 @@ paths:
           format: int64
           minimum: 1
       responses:
-        '200':
+        '204':
           description: success
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: User or role not found
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
   /store/:
@@ -977,6 +1451,17 @@ paths:
         schema:
           type: integer
         description: The numbers of items per page
+      - in: query
+        name: q
+        schema:
+          type: string
+        description: Search query to filter stores by name, number, address and zipcode
+      - in: query
+        name: sort
+        schema:
+          type: string
+        description: Sory by field
+        example: -name
       responses:
         '200':
           description: success
@@ -985,7 +1470,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/StoreList'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
     post:
@@ -994,10 +1489,30 @@ paths:
       summary: Add a new store
       operationId: addStore
       responses:
-        '405':
-          description: Invalid input
+        '201':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Store'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
       requestBody:
@@ -1026,11 +1541,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/Store'
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: Store not found
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
     put:
@@ -1048,12 +1581,36 @@ paths:
           format: int64
           minimum: 1
       responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Store'
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: Store not found
-        '405':
-          description: Invalid input
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         $ref: '#/components/requestBodies/Store'
       security:
@@ -1074,14 +1631,82 @@ paths:
           format: int64
           minimum: 1
       responses:
-        '200':
+        '204':
           description: success
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: Store not found
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - bearerAuth: []
+  /store/by-company/:
+    get:
+      tags:
+      - stores
+      summary: Store list by compnay
+      description: Returns a list of stores by company (JWT) with pagination
+      operationId: getStoresByCompany
+      parameters:
+      - in: query
+        name: page
+        schema:
+          type: integer
+        description: Page number
+      - in: query
+        name: per_page
+        schema:
+          type: integer
+        description: The numbers of items per page
+      - in: query
+        name: q
+        schema:
+          type: string
+        description: Search query to filter users by name and email
+      - in: header
+        name: response_type
+        schema:
+          type: string
+          enum: [simple, full]
+          description: Response type, simple and full (full just for admin)
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
   /store/{id}/department/:
@@ -1110,11 +1735,29 @@ paths:
                 items:
                   $ref: '#/components/schemas/Department'
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: Store not found
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
     post:
@@ -1132,12 +1775,32 @@ paths:
           format: int64
           minimum: 1
       responses:
+        '201':
+          description: success
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: Store not found
-        '405':
-          description: Invalid input
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         content:
           application/json:
@@ -1175,14 +1838,32 @@ paths:
           format: int64
           minimum: 1
       responses:
-        '200':
+        '204':
           description: success
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: Store or department not found
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
   /store/{id}/user/:
@@ -1211,11 +1892,29 @@ paths:
                 items:
                   $ref: '#/components/schemas/User'
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: Store not found
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
     post:
@@ -1233,12 +1932,32 @@ paths:
           format: int64
           minimum: 1
       responses:
+        '201':
+          description: success
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: Store not found
-        '405':
-          description: Invalid input
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       requestBody:
         content:
           application/json:
@@ -1276,14 +1995,32 @@ paths:
           format: int64
           minimum: 1
       responses:
-        '200':
+        '204':
           description: success
         '400':
-          description: Invalid ID supplied
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
-          description: Invalid access to this resource
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '404':
-          description: Store or user not found
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
       security:
       - bearerAuth: []
 components:
@@ -1314,7 +2051,7 @@ components:
             type: string
       description: SSO token generated by third party
       required: true
-    User1:
+    User:
       content:
         application/json:
           schema:
@@ -1516,10 +2253,6 @@ components:
           type: string
         longitude:
           type: string
-        departments:
-          type: array
-          items:
-            $ref: '#/components/schemas/Department'
     Token:
       type: object
       properties:
@@ -1626,3 +2359,10 @@ components:
           $ref: '#/components/schemas/PaginationLinks'
         meta:
           $ref: '#/components/schemas/PaginationMeta'
+    Error:
+      type: object
+      properties:
+        type:
+          type: string
+        message:
+          type: string
